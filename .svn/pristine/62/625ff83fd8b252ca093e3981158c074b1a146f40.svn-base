@@ -1,0 +1,11 @@
+package net.zhaoxuyang.blog.mapper;
+
+import net.zhaoxuyang.blog.model.ArticleListItem;
+
+/**
+ *
+ * @author zhaoxuyang
+ */
+public interface MoreToOneMapper {
+    public ArticleListItem getArticleListItem(Integer articleId);
+}

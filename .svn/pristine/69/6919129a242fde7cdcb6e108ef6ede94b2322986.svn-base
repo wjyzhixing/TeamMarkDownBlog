@@ -1,0 +1,90 @@
+/*
+__        ____  __ ____    ____  _     ___   ____ 
+\ \      / /  \/  |  _ \  | __ )| |   / _ \ / ___|
+ \ \ /\ / /| |\/| | | | | |  _ \| |  | | | | |  _ 
+  \ V  V / | |  | | |_| | | |_) | |__| |_| | |_| |
+   \_/\_/  |_|  |_|____/  |____/|_____\___/ \____|
+ */ 
+
+package net.zhaoxuyang.blog.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import net.zhaoxuyang.blog.model.User;
+import net.zhaoxuyang.blog.model.UserInfo;
+import net.zhaoxuyang.blog.service.UserinfoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+
+/**
+ *更新用户信息类
+ * 
+ * @author maoyufeng
+ */
+@Controller
+public class UserUpdateController {
+
+    Logger LOG = LoggerFactory.getLogger(getClass());
+
+    @Autowired
+    UserinfoService userinfoService;
+    
+    /**
+     * 修改用户信息
+     * 
+     * @param info 用户信息类
+     * @param session HTTP会话
+     * @param request HTTP请求
+     * @param model 
+     * @return  用户主页
+     */
+    
+    @PostMapping("/update")
+    public String updateAction(
+            UserInfo info,
+            HttpSession session,
+            HttpServletRequest request,
+            Model model
+    ) {
+        LOG.info("public String updateAction");
+        LOG.info("UserInfo=" + info);
+        System.out.println(session.getAttribute("user"));
+
+        User user = (User) session.getAttribute("user");
+      //  System.out.println(user.getUsername());
+        try {
+          //  System.out.println(user.getId());
+          /**
+           * 试着查询用户信息表中是否存在该用户信息
+           */
+            boolean result = (userinfoService.selectByUserId(user.getId()) != null); 
+            info.setUser_id(user.getId());
+            
+            /**
+             * - 如果存在用户信息，就更新该信息
+             * - 否则插入新的用户信息
+             * - 如果出现修改异常，则重定向到错误提示，修改成功后也重定向到用户主页
+             * 
+             */
+ 
+            if (result) {
+                userinfoService.update(info);
+            } else {
+                userinfoService.insertInfo(info);
+            }
+        } catch (Exception e) {
+           // System.out.println("修改失败！");
+            return "redirect:/" + user.getUsername() + "/article/list";
+        }
+        //System.out.println(userinfoService.selectByUserId(user.getId()));
+        session.setAttribute("userinfo", userinfoService.selectByUserId(user.getId()));
+        //System.out.println("修改成功！");
+        return "redirect:/" + user.getUsername() + "/article/list";
+
+    }
+
+}

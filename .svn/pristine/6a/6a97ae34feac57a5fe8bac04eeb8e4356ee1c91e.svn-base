@@ -1,0 +1,15 @@
+<!-- 首页sidebar -->
+
+<div class="col-md-12" >
+    <table class="table table-condensed text-center" >
+        <?
+        for(var indextype in indextypes!){
+        ?>
+        <tr><td><a href="${ctxPath}/index/type/${indextype}">${indextype}</a></td></tr>
+        <?
+        }
+        ?>
+    </table>
+</div>
+
+<!-- 主页信息 end -->

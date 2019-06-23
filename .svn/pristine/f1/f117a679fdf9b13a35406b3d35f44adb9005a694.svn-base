@@ -1,0 +1,11 @@
+package net.zhaoxuyang.blog.mapper;
+
+import net.zhaoxuyang.blog.model.UserVO;
+
+/**
+ *
+ * @author zhaoxuyang
+ */
+public interface OneToMoreMapper {
+    public UserVO getUserVO(Integer userId);
+}

@@ -1,0 +1,19 @@
+<!-- 首页sidebar -->
+
+<div class="col-md-12" >
+    
+    <ul class="list-group text-center">
+        <li class="list-group-item list-group-item-heading">系统分类</li>
+        <?
+        for(var indextype in indextypes!){
+        ?>
+        <li class="list-group-item">
+            <a href="${ctxPath}/index/type/${indextype}">${indextype}</a>
+        </li>
+        <?
+        }
+        ?>
+    </ul>
+</div>
+
+<!-- 主页信息 end -->

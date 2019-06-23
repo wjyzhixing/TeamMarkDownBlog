@@ -1,0 +1,128 @@
+/*
+__        ____  __ ____    ____  _     ___   ____ 
+\ \      / /  \/  |  _ \  | __ )| |   / _ \ / ___|
+ \ \ /\ / /| |\/| | | | | |  _ \| |  | | | | |  _ 
+  \ V  V / | |  | | |_| | | |_) | |__| |_| | |_| |
+   \_/\_/  |_|  |_|____/  |____/|_____\___/ \____|
+ */ 
+package net.zhaoxuyang.blog.controller;
+
+import static net.zhaoxuyang.blog.controller.UserArticleController.LOG;
+import net.zhaoxuyang.blog.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+/**
+ * 访客 - 控制器类
+ *
+ * @author 赵栩旸
+ */
+@Controller
+public class VisitorController {
+
+    @Autowired
+    UserService userService;
+
+     @RequestMapping("")
+    public String index(){
+        LOG.info("public String index");
+        return "redirect:/guest/sign";
+    }
+    /**
+     * 登录页面
+     *
+     * @return 登录页面的视图名称
+     */
+//    @RequestMapping(value = "/login.html")
+//    public String loginForm() {
+//        return "Login";
+//    }
+    /**
+     * 登录事件
+     *
+     * @param loginUser 是从表单传来的，其属性与表单中的name一致
+     * @param session 会话
+     * @return 用户主页的视图名称
+     */
+//    @RequestMapping(value = "/login.action")
+//    public String loginAction(User loginUser, HttpSession session) {
+//        User user = userService.login(loginUser);
+//        session.setAttribute("user", user);
+//        return "redirect:/user/" + user.getId();
+//    }
+    /**
+     * 根据用户名访问用户主页
+     *
+     * @param username URI路径中的username
+     * @param session
+     * @return 用户主页的视图名称
+     */
+//    @RequestMapping(value = "/user/{username}")
+//    public ModelAndView userHome(@PathVariable String username, HttpSession session) {
+//        ModelAndView mv = new ModelAndView();
+//        User userHome = userService.getByUsername(username);
+//        mv.setViewName("UserHome");//用户主页的视图名称（/WEB-INF/jsp/UserHome.jsp）
+//        mv.addObject("userHome", userHome);//用户主页中要展示的信息
+//        return mv;
+//    }
+
+//    @RequestMapping(value = "/user/list")
+//    public ModelAndView userList(HttpSession session) {
+//        ModelAndView mv = new ModelAndView();
+//        List<User> userList = userService.list();
+//        mv.setViewName("UserList");//用户主页的视图名称（/WEB-INF/jsp/UserHome.jsp）
+//        mv.addObject("userList", userList);//用户主页中要展示的信息
+//        return mv;
+//    }//    
+//    @RequestMapping(value = "/test/echo")
+//    @ResponseBody
+//    public String echo(String name) {
+//        return "Hello," + name;
+//    }
+//
+//    @Autowired
+//    DatetimeUtil datatimeUtil;
+
+    /**
+     * 获取文章详情 ＠see
+     * http://localhost:8080/blog.zhaoxuyang.net/zxy/article/11/details
+     *
+     * @see 需要导入Jackson，自动将Java对象转换成JSON字符串
+     * @param username 用户名
+     * @param articleId　文章ID
+     * @return 文章对象
+     */
+//    @RequestMapping(value = "/{username}/article/{articleId}/details")
+//    @ResponseBody
+//    public Article articleDetails(
+//            @PathVariable String username,
+//            @PathVariable Long articleId
+//    ) {
+//        Article result = new Article();
+//        result.setCategory("分类" + (articleId % 5));
+//        result.setGmtCreate(new Date());
+//        result.setMarkdown("contnet" + username + "," + articleId);
+//        return result;
+//    }
+
+//    
+//    @Autowired ArticleService articleService;
+//    @RequestMapping("/getAllBook")
+//    @ResponseBody
+//    public Page getAllBook(
+//            @RequestParam(defaultValue = "1") String pageNo, //当前页码
+//            @RequestParam(defaultValue = "5") String pageSize//页面大小
+//    ) {
+//        //获取当前页数据
+//        List<Article> list = articleService.list(pageNo, pageSize);
+//        //获取总数据大小
+//        int totals = articleService.l();
+//        //封装返回结果
+//        Page page = new Page();
+//        page.setTotal(totals + "");
+//        page.setRows(list);
+//        return page;
+//    }
+
+}

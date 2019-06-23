@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+    <head>
+        <#head title='用户主页' />
+    </head>
+    <body>
+        <div class="container">
+            <#nav />
+
+
+            <!-- 用户主页  -->
+            <section class="row">
+                <!--　pull-right　使得以下部分在移动端显示在上方，在ＰＣ端显示在右边-->
+                <div class="col-md-8 pull-right">
+                    
+                    
+
+                    
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <div class="text-primary btn btn-lg">
+                                ${selectTitle!}
+                            </div>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <span class="pull-right">
+<!--                                <span class="btn-group-sm">
+                                    <a href="#" class="btn btn-default">
+                                        按更新时间
+                                        <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-default">
+                                        按访问量
+                                        <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                    </a>
+                                </span>-->
+                                <span>
+                                    <a href="#" class="btn btn-success btn-sm">
+                                        <i class="fa fa-rss" aria-hidden="true"></i>
+                                        RSS订阅
+                                    </a>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    
+                    <br />
+                    
+                    <div class="row">
+                        <#pagebar />
+                    </div>
+                    
+                    <br />
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <ul class="list-group" class="article-list">
+
+                                <?for(articleLP in pageInfo.list){?>
+                                <li class="list-group-item">
+                                    <h3 class="text-center">
+                                        <a href="${ctxPath}/${author.username}/article/details/${articleLP.id}" class="btn btn-link btn-lg">${articleLP.title}</a>
+                                    </h3>
+                                    <p class=text-left">
+                                        <i class="fa fa-quote-left text-info" aria-hidden="true"></i>
+                                        ${articleLP.summary}
+                                    </p>
+                                    <div class="text-right">
+                                        <br/>
+                                        <span class="article-item-entry btn">
+                                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                                            ${articleLP.gmtUpdate!,dateFormat="yyyy-MM-dd HH:mm:ss"}
+                                        </span>
+                                        <span class="article-item-entry btn">
+                                            <i class="fa fa-bars" aria-hidden="true"></i>
+                                            <a href="${ctxPath}/${author.username}/article/category/${articleLP.category}">${articleLP.category}</a>
+                                        </span>
+                                        <br/>
+                                        <span class="btn-group-xs article-item-entry">
+                                            
+                                            <?for( var tagsLP in strutil.split (articleLP.tags,"\\|")){?>
+                                            <a href="${ctxPath}/${author.username}/article/tag/${tagsLP}" class="btn btn-default">${tagsLP}</a>
+                                            <?}?>
+                                        </span>
+                                    </div>
+                                </li>
+
+                                <?}?>
+
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <#pagebar />
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <#sidebar />
+                </div>
+            </section>
+            <!-- 用户主页 end-->
+
+            <#footer />
+        </div>
+
+    </body>
+</html>
+

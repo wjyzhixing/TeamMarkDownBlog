@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+
+    <#head title='首页' />
+
+    <div class="container">
+        <#nav />
+
+        <!-- 用户主页  -->
+        <section class="row">
+            <div class="col-md-2 col-sm-12">
+                <#indexsidebar />
+            </div>
+            <div class="col-md-8 col-sm-12 fade in active">
+
+                <div class="tab-content">
+
+                    <div class="tab-pane fade in active">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul class="list-group" class="article-list">
+
+                                    <?for(var articleLP in pageInfo.list){?>
+                                    <li class="list-group-item">
+                                        <h3 class="text-center">
+
+                                        </h3>
+                                        <p class=text-left">
+                                            <i class="fa fa-quote-left text-info" aria-hidden="true"></i>
+                                            <a href="${ctxPath}/${articleLP.user.username}/article/details/${articleLP.article.id}">${articleLP.article.title}</a>
+                                        </p>
+                                        <div class="text-right">
+                                            <br/>
+                                            <span class="article-item-entry btn">
+                                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                                ${articleLP.article.gmtUpdate!,dateFormat="yyyy-MM-dd HH:mm:ss"}
+                                            </span>
+                                            <span class="article-item-entry btn">
+                                                <i class="fa fa-bars" aria-hidden="true"></i>
+
+                                            </span>
+                                            <span class="article-item-entry btn">
+                                                <i class="fa fa-tags" aria-hidden="true"></i>
+                                                ${articleLP.article.type}
+                                                <a href="${ctxPath}/${articleLP.user.username}/article/list">${articleLP.user.username}</a>
+                                            </span>
+                                            <br/>
+
+                                        </div>
+                                    </li>
+
+                                    <?}?>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <#pagebar />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="col-md-2 col-sm-12">
+                <ul class="list-group text-center">
+                    <?
+                    for(var i=0;i<20;i++){
+                    ?>
+                    <li class="list-group-item">
+                        <a href="${ctxPath}/username/article/details/${i}">文章标题${i}</a>
+                    </li>
+                    <?
+                    }
+                    ?>
+                </ul>
+            </div>
+
+
+
+
+        </section>
+        <!-- 用户主页 end-->
+
+        <#footer />
+    </div>
+
+    <script>
+        $(function () {
+            $.ajax("${ctxPath}/zhaoxuyang/article/list", {
+                data: {
+
+                },
+                success: function (data) {
+                    console.log(data);
+                    //location.href = "${ctxPath}/${session.user.username!}/article/list";
+                },
+                fail: function () {
+                    alert("提交失败！服务端未响应！");
+                },
+                type: "POST"
+            });
+        });
+    </script>
+</body>
+
+</html>
+

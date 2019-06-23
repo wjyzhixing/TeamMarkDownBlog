@@ -1,0 +1,50 @@
+package net.zhaoxuyang.blog.controller;
+
+import com.github.pagehelper.PageInfo;
+import javax.servlet.http.HttpSession;
+import net.zhaoxuyang.blog.service.ArticleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+/**
+ *
+ * @author wyx
+ */
+@Controller
+@RequestMapping("/html/index")
+public class IndexController {
+     @Autowired
+    ArticleService articleService;
+     
+    final static String INDEX_HTML = "Index.html";
+    
+    
+    @GetMapping("/pages/{pageCurr}")
+    public String list(
+            @PathVariable Integer pageCurr,
+            @RequestParam(defaultValue = "5") Integer pageSize,
+            Model model,
+            HttpSession session){                
+
+        if (pageCurr == null) {
+            pageCurr = 1;
+        }
+        
+        String pageUri = "html/index/pages";
+        model.addAttribute("pageUri", pageUri);
+
+        PageInfo pageInfo = (PageInfo) articleService.listAll(pageCurr, pageSize);
+        model.addAttribute("pageInfo", pageInfo);
+         return INDEX_HTML;
+    }  
+    @RequestMapping(value = {"pages ", ""})
+    public String list(){
+        return String.format("redirect:/html/index/pages/1");
+    }
+
+}

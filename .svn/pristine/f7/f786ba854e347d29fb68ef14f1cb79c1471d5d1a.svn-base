@@ -1,0 +1,66 @@
+/*
+ _     _                   _                                                                 _   
+ | |__ | | ___   __ _   ___| |__   __ _  _____  ___   _ _   _  __ _ _ __   __ _    _ __   ___| |_ 
+ | '_ \| |/ _ \ / _` | |_  / '_ \ / _` |/ _ \ \/ / | | | | | |/ _` | '_ \ / _` |  | '_ \ / _ \ __|
+ | |_) | | (_) | (_| |_ / /| | | | (_| | (_) >  <| |_| | |_| | (_| | | | | (_| | _| | | |  __/ |_ 
+ |_.__/|_|\___/ \__, (_)___|_| |_|\__,_|\___/_/\_\\__,_|\__, |\__,_|_| |_|\__, |(_)_| |_|\___|\__|
+ |___/                                   |___/             |___/ 
+ */
+package net.zhaoxuyang.blog.service.impl;
+
+import com.github.pagehelper.PageHelper;
+import java.util.Date;
+import java.util.List;
+import net.zhaoxuyang.blog.mapper.UserMapper;
+import net.zhaoxuyang.blog.mapper.UserinfoMapper;
+import net.zhaoxuyang.blog.model.User;
+import net.zhaoxuyang.blog.model.UserInfo;
+import net.zhaoxuyang.blog.service.UserService;
+import net.zhaoxuyang.blog.service.UserinfoService;
+import net.zhaoxuyang.util.CryptographicUtil;
+import net.zhaoxuyang.util.StringUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+/**
+ *
+ * @author zhaoxuyang
+ */
+@Service
+public class UserinfoServiceImpl implements UserinfoService {
+
+    @Autowired
+    UserinfoMapper userinfoMapper;
+    @Autowired
+    UserService service;
+
+    @Override
+    public boolean update(UserInfo info, String username) {
+        User usr = service.getByUsername(username);
+        Integer id = usr.getId();
+        System.out.println(id);
+        info.setUser_id(id);
+        int n = userinfoMapper.insert(info);
+
+        boolean result = n > 0;
+
+        return result;
+    }
+
+    @Override
+    public boolean ifExist(String username) {
+
+        UserInfo usr = userinfoMapper.selectByName(username);
+
+        boolean result = (usr != null);
+
+        return result;
+    }
+
+    @Override
+    public UserInfo selectByName(String username) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+
+}

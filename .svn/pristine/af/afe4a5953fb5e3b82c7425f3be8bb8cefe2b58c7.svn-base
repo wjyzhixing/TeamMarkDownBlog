@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- AdminArticleCommentMapper.xml -->
+
+<mapper namespace="net.zhaoxuyang.blog.mapper.AdminMapper">
+    
+<!--    <resultMap id="ArticleComment" type="int">
+        <id property="article_id" column="article_id"/>
+        <result property="id" column="id" ></result>
+    </resultMap>-->
+    
+    <delete id="deleteArticleCommentReply" parameterType="AdminArticleCommentReply">
+        delete from comment_reply
+        where article_id = #{article_id}
+    </delete>
+    
+    <delete id="deleteVisitArticle" parameterType="AdminVisitArticle">
+        delete from visit_article
+        where article_id = #{article_id}
+    </delete>
+    
+    <delete id="deleteArticleComment" parameterType="AdminArticleComment">
+        delete from article_comment
+        where article_id = #{article_id}
+    </delete>
+    
+<!--    <select id="selectArticleComment" resultType="int" resultMap="ArticleComment" >
+        select id from article_comment
+        where article_id = #{article_id}
+    </select>-->
+</mapper>
+

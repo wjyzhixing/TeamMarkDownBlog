@@ -1,0 +1,32 @@
+package net.zhaoxuyang.blog.model;
+
+/**
+ *
+ * @author zhaoxuyang
+ */
+public class ArticleListItem {
+    private Article article;
+    private User user;
+
+    @Override
+    public String toString() {
+        return "ArticleListItem{" + "article=" + article + ", user=" + user + '}';
+    }
+
+    public Article getArticle() {
+        return article;
+    }
+
+    public void setArticle(Article article) {
+        this.article = article;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
+}

@@ -1,0 +1,38 @@
+package net.zhaoxuyang.blog.function;
+
+import org.beetl.core.Context;
+import org.beetl.core.Function;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+/**
+ * @author GavinKing
+ * @ClassName: PrintTime
+ * @Description:
+ * @date 2018/12/11
+ */
+public class PrintTime implements Function {
+    @Override
+    public String call(Object[] objects, Context context) {
+        Date date = (Date) objects[0];
+
+        Date now = new Date();
+        Long fiveM = date.getTime() + (5*60*1000);
+        Long thM = date.getTime() + (30*60*1000);
+        Long oneH = date.getTime() + (60*60*1000);
+        if(now.getTime() < fiveM){
+            return "刚刚";
+        }
+        if(now.getTime() < thM){
+            return "半小时前";
+        }
+        if(now.getTime() < oneH){
+            return "一小时前";
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat(objects[1].toString());
+
+        return sdf.format(date);
+    }
+}

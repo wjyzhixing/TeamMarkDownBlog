@@ -1,0 +1,40 @@
+/*
+__        ____  __ ____    ____  _     ___   ____ 
+\ \      / /  \/  |  _ \  | __ )| |   / _ \ / ___|
+ \ \ /\ / /| |\/| | | | | |  _ \| |  | | | | |  _ 
+  \ V  V / | |  | | |_| | | |_) | |__| |_| | |_| |
+   \_/\_/  |_|  |_|____/  |____/|_____\___/ \____|
+ */ 
+package net.zhaoxuyang.blog.controller;
+
+import static net.zhaoxuyang.blog.controller.UserArticleController.LOG;
+import net.zhaoxuyang.blog.exception.BlogException;
+import net.zhaoxuyang.blog.exception.BlogUserNotFoundException;
+import net.zhaoxuyang.blog.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+/**
+ * 访客 - 控制器类
+ *
+ * @author 赵栩旸
+ */
+@Controller
+public class VisitorController {
+
+    @Autowired
+    UserService userService;
+
+     @RequestMapping("")
+    public String index(){
+        LOG.info("public String index");
+        return "redirect:/index";
+    }
+    
+    @RequestMapping("error.form")
+    public ModelAndView errorForm() throws BlogException{
+        throw new BlogUserNotFoundException("我抛了一个用户找不到的异常，这是返回到客户端的消息<i class=\"fa fa-bell\"></i>");
+    }
+}

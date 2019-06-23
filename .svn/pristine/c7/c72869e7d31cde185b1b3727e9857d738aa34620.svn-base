@@ -1,0 +1,29 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package net.zhaoxuyang.blog.service;
+
+import com.github.pagehelper.PageInfo;
+import java.util.List;
+import net.zhaoxuyang.blog.model.Article;
+import net.zhaoxuyang.blog.model.User;
+
+/**
+ *
+ * @author wjy
+ */
+public interface AdminService {
+    
+    public static final String ADMIN_SESSION_KEY = "admin";
+    public boolean login(String username,String password);
+    public boolean deleteUserById(Integer id);
+    public List<User> listUser();
+    public boolean deleteArticleById(Integer id);
+    public List<Article> listArticle();
+    public PageInfo listUser(Integer pageCurr, Integer pageSize);//列出一个用户的所有文章
+    public PageInfo listArticle(Integer pageCurr, Integer pageSize);
+
+    
+}

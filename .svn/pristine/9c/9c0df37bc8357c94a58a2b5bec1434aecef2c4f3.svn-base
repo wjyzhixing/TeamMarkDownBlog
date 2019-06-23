@@ -1,0 +1,174 @@
+/*
+__        ____  __ ____    ____  _     ___   ____ 
+\ \      / /  \/  |  _ \  | __ )| |   / _ \ / ___|
+ \ \ /\ / /| |\/| | | | | |  _ \| |  | | | | |  _ 
+  \ V  V / | |  | | |_| | | |_) | |__| |_| | |_| |
+   \_/\_/  |_|  |_|____/  |____/|_____\___/ \____|
+*/
+package net.zhaoxuyang.blog.service.impl;
+
+import com.github.pagehelper.PageHelper;
+import java.util.Date;
+import net.zhaoxuyang.blog.mapper.UserMapper;
+import net.zhaoxuyang.blog.model.User;
+import java.util.List;
+import net.zhaoxuyang.blog.service.UserService;
+import net.zhaoxuyang.util.CryptographicUtil;
+import net.zhaoxuyang.util.StringUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+/**
+ *
+ * @author zhaoxuyang
+ */
+@Service
+public class UserServiceImpl implements UserService {
+
+    Logger LOG = LoggerFactory.getLogger(getClass());
+
+    @Autowired
+    UserMapper userMapper;
+
+    @Override
+    public User login(String usernameOrEmail, String password) {
+        LOG.info("public User login(String usernameOrEmail, String password)");
+        LOG.info("usernameOrEmail=" + usernameOrEmail);
+        LOG.info("password=" + password);
+        User result = null;
+
+        User input = new User();
+
+        //判断是否为邮箱
+        if (StringUtil.isEmail(usernameOrEmail)) {
+            input.setEmail(usernameOrEmail);
+        } else {
+            input.setUsername(usernameOrEmail);
+        }
+        User aUser = userMapper.getAnd(input);
+        String aSalt = aUser.getSalt();//从数据库中取出的盐
+        String aPassword = aUser.getPassword();//从数据库中取出的密码
+        String passwordSaltSha = getPasswordSaltSha(password, aSalt);//加盐
+
+        if (aPassword.equals(passwordSaltSha)) {
+            result = aUser;
+        }
+        return result;
+    }
+
+    @Override
+    public List<User> list() {
+        LOG.info(" public List<User> list()");
+        List<User> result;
+        result = userMapper.list();
+
+//        PageHelper.startPage(1, 10);
+//        List<Country> list = countryMapper.selectIf(1);
+        return result;
+    }
+
+    @Override
+    public User getByUsername(String username) {
+        LOG.info("public User getByUsername(String username)");
+        LOG.info("username=" + username);
+
+        User result;
+
+        User input = new User();
+        input.setUsername(username);
+        System.out.println("hello");
+        result = userMapper.getAnd(input);
+
+        return result;
+    }
+
+    @Override
+    public User getById(Integer id) {
+        LOG.info("public User getById(Integer id)");
+        LOG.info("id=" + id);
+
+        User result;
+
+        User input = new User();
+        input.setId(id);
+        result = userMapper.getAnd(input);
+
+        return result;
+    }
+
+    @Override
+    public User getByEmail(String email) {
+        LOG.info("public User getByEmail(String email)");
+        LOG.info("email=" + email);
+        return userMapper.getByEmail(email);
+    }
+
+    @Override
+    public boolean register(User user) {
+        boolean result;
+        LOG.info("public boolean register(User user)");
+        LOG.info("user=" + user);
+
+        //密码加盐
+        String salt = StringUtil.createSalt();
+        String password = user.getPassword();//明文密码
+        String passwordSaltSha = getPasswordSaltSha(password, salt);//加盐
+
+        user.setSalt(salt);//存在数据表中的盐
+        user.setPassword(passwordSaltSha);//存在数据表中的密码
+        user.setGmtCreate(new Date());
+
+        int n = userMapper.insert(user);
+        result = n > 0;
+
+        return result;
+    }
+
+    @Override
+    public boolean updatePassword(User user) {
+        boolean result;
+
+        //密码加盐
+        String salt = StringUtil.createSalt();
+        String password = user.getPassword();//明文密码
+        String passwordSaltSha = getPasswordSaltSha(password, salt);//加盐
+
+        user.setSalt(salt);//存在数据表中的盐
+        System.out.println("new salt: " + user.getSalt());
+        user.setPassword(passwordSaltSha);//存在数据表中的密码
+        // user.setGmtCreate(new Date());
+        System.out.println("new Pass in Data: " + user.getPassword());
+
+        int n = userMapper.updatePass(user);
+        result = n > 0;
+
+        return result;
+    }
+
+    /**
+     * sha(password+salt)
+     *
+     * @param password
+     * @return sha(password+salt)
+     */
+    private String getPasswordSaltSha(String password, String salt) {
+        String message = String.format("%s%s", password, salt);
+        String result = CryptographicUtil.sha(message);
+        return result;
+    }
+
+    @Override
+    public List<User> list(Integer currPage, Integer pageSize) {
+        LOG.info(" public List<User> list(Integer currPage, Integer pageSize)");
+        LOG.info("currPage=" + currPage);
+        LOG.info("pageSize=" + pageSize);
+
+        PageHelper.startPage(currPage, pageSize);
+        List<User> result;
+        result = userMapper.list();
+        return result;
+    }
+
+}

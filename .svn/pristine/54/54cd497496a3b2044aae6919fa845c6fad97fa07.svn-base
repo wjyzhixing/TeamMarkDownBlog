@@ -1,0 +1,2 @@
+alter table test.article add column type enum('程序人生','Python','Java','C','C++','C#','前端','架构','区块链','数据库','游戏开发','移动开发','运维','人工智能','云计算/大数据','研发管理','物联网','计算机基础','其他') not null default "Java";
+

@@ -1,0 +1,13 @@
+package net.zhaoxuyang.blog.mapper;
+
+import java.util.List;
+import net.zhaoxuyang.blog.model.ArticleListItem;
+
+/**
+ *
+ * @author zhaoxuyang
+ */
+public interface MoreToOneMapper {
+    public ArticleListItem getArticleListItem(Integer articleId);
+    public List<ArticleListItem> listArticleItem();
+}

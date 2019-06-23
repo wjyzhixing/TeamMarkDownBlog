@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- ArticleMapper.xml -->
+
+<mapper namespace="net.zhaoxuyang.blog.mapper.UserinfoMapper">
+    
+    <resultMap id="UserInfoResultMap" type="UserInfo">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="salt" column="salt"/>
+        <result property="password" column="password"/>
+        <result property="email" column="email"/>
+        <result property="gmtCreate" column="gmt_create"/>
+    </resultMap>
+    
+    <select id="selectById" parameterType="UserInfo" resultMap="UserInfoResultMap">
+        select id , user_id , gender , nickname , nickimg
+        from user_info
+        where user_id
+        <where>
+            <if test="id != null">
+                id = #{ id }
+            </if>
+            <if test="username != null">
+                and username = #{ username }
+            </if>
+            <if test="password != null">
+                and password = #{ password }
+            </if>
+            <if test="email != null">
+                and email = #{ email }
+            </if>
+        </where>
+    </select>
+    
+     <insert id="insert" parameterType="UserInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into user_info( id , user_id , gender , nickname , nickimg )
+        values( #{ id },  #{ user_id },  #{ gender },  #{ nickname },  #{ nickimg } )
+    </insert>
+
+
+    <delete id="delete" parameterType="UserInfo">
+        delete from user_info
+        where user_id = #{user_id}
+    </delete>
+</mapper>
+

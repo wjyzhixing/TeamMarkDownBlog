@@ -1,0 +1,39 @@
+package net.zhaoxuyang.blog.config;
+
+import net.zhaoxuyang.blog.permission.PermissionInterceptor;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+/**
+ *
+ * @author zhaoxuyang
+ */
+@Configuration
+public class MvcConfig extends WebMvcConfigurerAdapter {
+
+    @Bean
+    public FilterRegistrationBean filterRegist() {
+        FilterRegistrationBean frBean = new FilterRegistrationBean();
+        frBean.setFilter(new EncodingFilter());
+        frBean.addUrlPatterns("/**");
+        System.out.println("filter");
+        return frBean;
+    }
+    
+    @Bean
+    public PermissionInterceptor permissionInterceptor() {
+        return new PermissionInterceptor();
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(permissionInterceptor())
+                .excludePathPatterns("/static/*")//不拦截
+                .excludePathPatterns("/error")//不拦截
+                .addPathPatterns("/**");//拦截
+    }
+
+}

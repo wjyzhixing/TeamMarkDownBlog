@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+
+    <#head title='${exceptionTitle}' />
+
+    <div class="container">
+        <#nav />
+
+        <section class="row">
+
+            <div class=" text-center col-md-12 pull-right fade in active">
+                <div class="well">
+                    <h2 class="text-danger "> ${exceptionTitle} </h2>
+                    <br /><br />
+                    消息： ${exceptionMessage}
+                    <br /><br />
+                    <br /><br />
+                    <a href="${ctxPath}/" class="btn btn-primary btn-sm">返回首页</a>
+                    <a href="${ctxPath}/" class="btn btn-warning btn-sm">消息反馈</a>
+                </div>
+
+            </div>
+
+        </section>
+
+        <#footer />
+    </div>
+
+</body>
+
+</html>
+
+

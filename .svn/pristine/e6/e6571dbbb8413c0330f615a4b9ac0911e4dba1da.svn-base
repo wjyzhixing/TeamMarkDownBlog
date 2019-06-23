@@ -1,0 +1,52 @@
+/*
+ _     _                   _                                                                 _   
+| |__ | | ___   __ _   ___| |__   __ _  _____  ___   _ _   _  __ _ _ __   __ _    _ __   ___| |_ 
+| '_ \| |/ _ \ / _` | |_  / '_ \ / _` |/ _ \ \/ / | | | | | |/ _` | '_ \ / _` |  | '_ \ / _ \ __|
+| |_) | | (_) | (_| |_ / /| | | | (_| | (_) >  <| |_| | |_| | (_| | | | | (_| | _| | | |  __/ |_ 
+|_.__/|_|\___/ \__, (_)___|_| |_|\__,_|\___/_/\_\\__,_|\__, |\__,_|_| |_|\__, |(_)_| |_|\___|\__|
+               |___/                                   |___/             |___/ 
+ */
+package net.zhaoxuyang.blog;
+
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+/**
+ * SpringBoot主程序
+ *
+ * @author zhaoxuyang
+ */
+@EnableTransactionManagement
+@SpringBootApplication //SpringBoot应用程序
+//@EnableCaching //开启缓存
+@MapperScan("net.zhaoxuyang.blog.mapper") //MyBatis自动扫描的包
+public class Application {
+
+    /**
+     * 配置mybatis的分页插件pageHelper
+     *
+     * @param application
+     * @return
+     */
+//    @Bean
+//    public PageHelper pageHelper() {
+//        PageHelper pageHelper = new PageHelper();
+//        Properties properties = new Properties();
+//        properties.setProperty("offsetAsPageNum", "true");
+//        properties.setProperty("rowBoundsWithCount", "true");
+//        properties.setProperty("reasonable", "true");
+//        properties.setProperty("dialect", "mysql");//配置mysql数据库的方言
+//        pageHelper.setProperties(properties);
+//        return pageHelper;
+//    }
+    /**
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+
+}

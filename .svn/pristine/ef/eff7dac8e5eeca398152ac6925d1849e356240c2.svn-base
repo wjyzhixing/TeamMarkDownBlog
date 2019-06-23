@@ -1,0 +1,35 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package net.zhaoxuyang.blog.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+/**
+ *
+ * @author zhaoxuyang
+ */
+@Controller
+@RequestMapping("/admin/manage")
+public class AdminManageController {
+
+    @GetMapping("")
+    public String form() {
+        return "AdminManage.html";
+    }
+
+    @GetMapping(value ={"user", "user/list"})
+    public String userForm() {
+        return "AdminManageUser.html";
+    }
+
+    @GetMapping(value={"article","article/list"})
+    public String articleForm() {
+        return "AdminManageArticle.html";
+    }
+
+}

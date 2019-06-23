@@ -1,0 +1,35 @@
+<!-- 导航 -->
+<nav class="navbar navbar-default">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-sidebar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">
+            <img src="${ctxPath}/assets/images/logo.png" alt="blog.zhaoxuyang.net" id="logo">
+        </a>
+    </div>
+    <div class="collapse navbar-collapse" id="nav-sidebar">
+        <ul class="nav navbar-nav">
+            <li><a href="${ctxPath}/">首页</a></li>
+            <li><a href="${ctxPath}/html/UserHome">用户主页</a></li>
+            <li><a href="${ctxPath}/html/ArticleEdit">文章编辑页</a></li>
+            <li><a href="${ctxPath}/html/ArticleRead">文章MarkDown预览页</a></li>
+            <li><a href="${ctxPath}/html/ArticleDetails">文章HTML预览页</a></li>
+            <li><a href="${ctxPath}/guest/sign">登录/注册</a></li>
+        </ul>
+        <form class="navbar-form navbar-right" action="https://www.baidu.com/s" target="_blank">
+            <div class="form-group">
+                <input class="form-control" type="search" name="wd" placeholder="搜索文章……">
+            </div>
+
+            <div class="form-group">
+                <button class="form-control" type="submit">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</nav>
+<!-- 导航 end -->

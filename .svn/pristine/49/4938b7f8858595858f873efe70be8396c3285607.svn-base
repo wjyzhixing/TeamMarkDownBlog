@@ -1,0 +1,44 @@
+/*
+__        ____  __ ____    ____  _     ___   ____ 
+\ \      / /  \/  |  _ \  | __ )| |   / _ \ / ___|
+ \ \ /\ / /| |\/| | | | | |  _ \| |  | | | | |  _ 
+  \ V  V / | |  | | |_| | | |_) | |__| |_| | |_| |
+   \_/\_/  |_|  |_|____/  |____/|_____\___/ \____|
+ */ 
+package net.zhaoxuyang.blog.controller;
+
+import static net.zhaoxuyang.blog.controller.UserArticleController.LOG;
+import net.zhaoxuyang.blog.exception.BlogException;
+import net.zhaoxuyang.blog.exception.BlogUserNotFoundException;
+import net.zhaoxuyang.blog.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+/**
+ * 访客 - 控制器类
+ *
+ * @author 赵栩旸
+ */
+@Controller
+public class VisitorController {
+
+    @Autowired
+    UserService userService;
+
+     @RequestMapping("")
+    public String index(){
+        LOG.info("public String index");
+        return "redirect:/guest/sign";
+    }
+    
+     @RequestMapping("error.form")
+    public String errorForm(Model model) throws BlogException{
+        model.addAttribute("exceptionTitle","错误页面");
+        model.addAttribute("exceptionMessage","错误页面");
+        
+        throw new BlogUserNotFoundException("博客异常");
+        //return "Error.html";
+    }
+}

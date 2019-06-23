@@ -1,0 +1,70 @@
+/*
+__        ____  __ ____    ____  _     ___   ____ 
+\ \      / /  \/  |  _ \  | __ )| |   / _ \ / ___|
+ \ \ /\ / /| |\/| | | | | |  _ \| |  | | | | |  _ 
+  \ V  V / | |  | | |_| | | |_) | |__| |_| | |_| |
+   \_/\_/  |_|  |_|____/  |____/|_____\___/ \____|
+*/
+package net.zhaoxuyang.blog.service.impl;
+
+import com.github.pagehelper.PageHelper;
+import java.util.Date;
+import java.util.List;
+import net.zhaoxuyang.blog.mapper.UserMapper;
+import net.zhaoxuyang.blog.mapper.UserinfoMapper;
+import net.zhaoxuyang.blog.model.User;
+import net.zhaoxuyang.blog.model.UserInfo;
+import net.zhaoxuyang.blog.service.UserService;
+import net.zhaoxuyang.blog.service.UserinfoService;
+import net.zhaoxuyang.util.CryptographicUtil;
+import net.zhaoxuyang.util.StringUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+/**
+ *
+ * @author zhaoxuyang
+ */
+@Service
+public class UserinfoServiceImpl implements UserinfoService {
+
+    @Autowired
+    UserinfoMapper userinfoMapper;
+   
+
+    @Override
+    public boolean insertInfo(UserInfo info) {
+
+        int n = userinfoMapper.insert(info);
+
+        boolean result = n > 0;
+
+        return result;
+    }
+
+    @Override
+    public boolean ifExist(String username) {
+        return false;
+
+    }
+
+    @Override
+    public UserInfo selectByUserId(Integer id) {
+        UserInfo usr = userinfoMapper.selectByUserId(id);
+        return usr;
+    }
+
+    @Override
+    public boolean update(UserInfo info) {
+        int n = userinfoMapper.update(info);
+        boolean result = n > 0;
+
+        return result;
+    }
+
+    @Override
+    public boolean updatePassword(String pas) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+}
