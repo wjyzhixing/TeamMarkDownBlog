@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+
+        <title>年月文章浏览量统计</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+        <!--        <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=xfhhaTThl11qYVrqLZii6w8qE5ggnhrY&__ec_v__=20190126"></script>-->
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+        <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<link href="https://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/css/bootstrap-select.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/js/bootstrap-select.js"></script>
+    <#head title='数据分析' />
+    <body>
+        <#nav />
+        <div style="text-align: center">
+            <div class="container">
+            <label>选择年份</label>
+            <select class="selectpicker" id="year">
+                <option value ="2019" selected>2019</option>
+                <option value ="2020">2020</option>
+                <option value ="2021">2021</option>
+                <option value ="2022">2022</option>
+                <option value ="2023">2023</option>
+                <option value ="2024">2024</option>
+                <option value ="2025">2025</option>
+                <option value ="2026">2026</option>
+                <option value ="2027">2027</option>
+                <option value ="2028">2028</option>
+                <option value ="2029">2029</option>
+                <option value ="2030">2030</option>
+            </select>
+            <label>选择月份</label>
+            <select class="selectpicker" id="month">
+                <option value ="01" selected>01</option>
+                <option value ="02">02</option>
+                <option value ="03">03</option>
+                <option value ="04">04</option>
+                <option value ="05">05</option>
+                <option value ="06">06</option>
+                <option value ="07">07</option>
+                <option value ="08">08</option>
+                <option value ="09">09</option>
+                <option value ="10">10</option>
+                <option value ="11">11</option>
+                <option value ="12">12</option>
+            </select>
+            <a href="#" id="analysis">
+                分析
+            </a>
+        </div>
+            </div>
+            
+            
+        <div class="row">
+            <div id="main" style="width:1280px; height:800px;margin:0 auto"></div>
+        </div>
+        <script>
+            function getLocalhostPath() {
+
+                //获取当前网址，如： http://localhost:8080/Tmall/index.jsp 
+                var curWwwPath = window.document.location.href;
+
+                //获取主机地址之后的目录如：/Tmall/index.jsp 
+                var pathName = window.document.location.pathname;
+                var pos = curWwwPath.indexOf(pathName);
+
+                //获取主机地址，如： http://localhost:8080 
+                var localhostPath = curWwwPath.substring(0, pos);
+                return localhostPath + "/";
+
+                //获取带"/"的项目名，如：/Tmall 
+                //var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1);     
+            }
+
+
+
+            $(function () {
+
+                var dom = document.getElementById("main");
+                var myChart = echarts.init(dom);
+
+
+                $('#analysis').bind('click', function () {
+                    let year = $('#year').val();
+                    let month = $('#month').val();
+                    /**
+                     * 根据日月分析
+                     */
+                    $.ajax(getLocalhostPath() + 'analysis/articleAnalysis.json', {
+                        data: {
+                            year: year,
+                            month: month
+                        },
+                        success: function (data) {
+                            if (data) {
+                                console.log(data);
+
+                                option = {
+                                    tooltip: {},
+                                    visualMap: {
+                                        max: data.maxCnt,
+                                        inRange: {
+                                            color: ['#313695', '#4575b4', '#74add1', '#abd9e9', '#e0f3f8', '#ffffbf', '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026']
+                                        }
+                                    },
+                                    xAxis3D: {
+                                        type: 'category',
+                                        axisTick: {
+                                            interval: 1,
+                                        },
+                                        axisLabel: {
+                                            interval: 1,
+                                            show:true
+                                        },
+                                        data: data.x
+                                    },
+                                    yAxis3D: {
+                                        type: 'category',
+                                        axisTick: {
+                                            interval: 0,
+                                        },
+                                        axisLabel: {
+                                            interval: 0,
+                                        },
+                                        data: data.y,
+                                        length: data.y.length
+                                    },
+                                    zAxis3D: {
+                                        type: 'value'
+                                    },
+                                    grid3D: {
+                                        boxWidth: 200,
+                                        boxDepth: 160,
+                                        viewControl: {
+                                            // projection: 'orthographic'
+                                        },
+                                        light: {
+                                            main: {
+                                                intensity: 1.2,
+                                                shadow: true
+                                            },
+                                            ambient: {
+                                                intensity: 0.3
+                                            }
+                                        }
+                                    },
+                                    series: [{
+                                            type: 'bar3D',
+                                            data: data.z,
+                                            shading: 'lambert',
+
+                                            label: {
+                                                textStyle: {
+                                                    fontSize: 16,
+                                                    borderWidth: 1
+                                                }
+                                            },
+
+                                            emphasis: {
+                                                label: {
+                                                    textStyle: {
+                                                        fontSize: 20,
+                                                        color: '#900'
+                                                    }
+                                                },
+                                                itemStyle: {
+                                                    color: '#900'
+                                                }
+                                            }
+                                        }]
+                                };
+
+                                myChart.setOption(option);
+
+                            } else {
+                                alert("服务端无数据！");
+                            }
+                        },
+                        fail: function () {
+                            alert("提交失败！服务端未响应！");
+                        },
+                        type: "POST"
+                    });
+                });
+
+            });
+        </script>
+    </body>
+</html>

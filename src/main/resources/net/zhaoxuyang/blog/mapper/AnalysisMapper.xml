@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.zhaoxuyang.blog.mapper.AnalysisMapper">
+    <resultMap id="AnalysisResultMap" type="AnalysisArticle">
+        <id property="id" column="id"/>
+        <result property="year" column="year"/>
+        <result property="month" column="month"/>
+        <result property="day" column="day"/>
+        <result property="cnt" column="cnt"/>
+        <result property="type" column="type"/>
+    </resultMap>
+    
+    <resultMap id="GlobalMap" type="AnalysisGlobal">
+        <id property="id" column="id"/>
+        <result property="shenghui" column="shenghui"/>
+        <result property="jingdu" column="jingdu"/>
+        <result property="weidu" column="weidu"/>
+        <result property="renshu" column="renshu"/>
+    </resultMap>
+
+<!--    <select id="listAnalysis" parameterType="java.util.Map" resultMap="AnalysisResultMap">
+        select type,DATE_FORMAT(article.gmt_create,"%Y") as year,DATE_FORMAT(article.gmt_create,"%m") as month,DATE_FORMAT(article.gmt_create,"%d") as day
+        ,count(*) as cnt from article
+        GROUP BY year,month,day,type	
+        having year=#{ year } and month=#{ month }
+    </select>
+    
+    <select id="listGlobal" resultMap="GlobalMap">
+        select address_jingweidu.shenghui,jingdu,weidu,count(*) as renshu
+        from address_diqu,address_jingweidu,address_user
+        where address_diqu.id=address_user.address_id and address_jingweidu.shenghui = address_diqu.sheng
+        GROUP BY address_jingweidu.shenghui,jingdu,weidu
+    </select>-->
+    
+    <select id="listAnalysis" parameterType="java.util.Map" resultMap="AnalysisResultMap">
+        select * from analysis_3d 
+        having year=#{ year } and month=#{ month }
+    </select>
+    
+    <select id="listGlobal" resultMap="GlobalMap">
+        select * from analysis_global 
+    </select>
+   
+  
+</mapper>
+

@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body style="text-align: center">
+            <div id="container" style="height: 800px;width:1080px;margin:0 auto;"></div>
+        <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+        <script src="/assets/js/echarts/echarts-all.js"></script>
+
+        <script type="text/javascript">
+
+            $(function () {
+                $.ajax(getLocalhostPath() + 'analysis/cloudAnalysis.json', {
+                    success: function (data) {
+                        console.log("running...");
+                        var dom = document.getElementById("container");
+                        var myChart = echarts.init(dom);
+                        var app = {};
+                        function createRandomItemStyle() {
+                            return {
+                                normal: {
+                                    color: 'rgb(' + [
+                                        Math.round(Math.random() * 160),
+                                        Math.round(Math.random() * 160),
+                                        Math.round(Math.random() * 160)
+                                    ].join(',') + ')'
+                                }
+                            };
+                        }
+                        console.log(data.cloudList.length);
+                        let arr = [];
+                        let length = data.cloudList.length;
+                        for (let i = 0; i < length; i++) {
+//                            console.log(data.cloudList[i].word);
+//                            console.log(data.cloudList[i].count);
+
+                            let temp = {};
+
+                            temp.name = data.cloudList[i].word;
+                            temp.value = data.cloudList[i].count*20;
+                            temp.itemStyle = createRandomItemStyle();
+
+                            arr.push(temp);
+                        }
+                        console.log(JSON.stringify(arr));
+//                        let dataNow = JSON.stringify(arr);
+                        option = {
+                            title: {
+                                text: '文章字词分析',
+                                link: 'http://www.google.com/trends/hottrends'
+                            },
+                            tooltip: {
+                                show: true
+                            },
+                            series: [{
+                                    name: 'Google Trends',
+                                    type: 'wordCloud',
+                                    size: ['80%', '80%'],
+                                    textRotation: [0, 45, 90, -45],
+                                    textPadding: 0,
+                                    autoSize: {
+                                        enable: true,
+                                        minSize: 30
+                                    },
+                                    data: arr
+
+                                }]
+                        };
+
+                        myChart.setOption(option);
+                    }
+                })
+            })
+            function getLocalhostPath() {
+
+                //获取当前网址，如： http://localhost:8080/Tmall/index.jsp 
+                var curWwwPath = window.document.location.href;
+
+                //获取主机地址之后的目录如：/Tmall/index.jsp 
+                var pathName = window.document.location.pathname;
+                var pos = curWwwPath.indexOf(pathName);
+
+                //获取主机地址，如： http://localhost:8080 
+                var localhostPath = curWwwPath.substring(0, pos);
+                return localhostPath + "/";
+
+                //获取带"/"的项目名，如：/Tmall 
+                //var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1);     
+            }
+        </script>
+    </body>
+</html>

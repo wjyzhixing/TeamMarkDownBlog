@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+
+    <#head title='首页' />
+<script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.js"></script>
+    <script>
+
+        let titleNow = [];
+        let countTimeNow = [];
+
+        <?
+        for(var myf in top){
+        ?>
+        //console.log('${myf}')
+        titleNow.push('${myf.title}');
+        countTimeNow.push('${myf.countTimes}');
+        <?
+        }
+        ?>
+
+        console.log(titleNow);
+        console.log(countTimeNow);
+    </script>
+    <div class="container">
+        <#nav />
+        <!-- 用户主页  -->
+        <section class="row">
+
+             <div id="main" style="width: 1080px;height:800px;margin: 0 auto"></div>
+
+        </section>
+        <!-- 用户主页 end-->
+
+    </div>
+
+    <script>
+
+        var myChart = echarts.init(document.getElementById('main'));
+        
+        var dataAxis = titleNow;
+        var data = countTimeNow;
+        var yMax = 2;
+        var dataShadow = [];
+
+        for (var i = 0; i < data.length; i++) {
+        dataShadow.push(yMax);
+        }
+
+        option = {
+        title: {
+        text: 'Top 10文章排行',
+        subtext: 'Top 10 Of The Articles '
+        },
+        xAxis: {
+        data: dataAxis,
+        axisLabel: {
+        inside: true,
+        interval: 0,
+        textStyle: {
+        color: 'white'
+        }
+        },
+        axisTick: {
+        show: false
+        },
+        axisLine: {
+        show: false
+        },
+        z: 10
+        },
+        yAxis: {
+        axisLine: {
+        show: false
+        },
+        axisTick: {
+        show: false
+        },
+        axisLabel: {
+        textStyle: {
+        color: '#999'
+        }
+        }
+        },
+        dataZoom: [
+        {
+        type: 'inside'
+        }
+        ],
+        series: [
+        { // For shadow
+        type: 'bar',
+        itemStyle: {
+        normal: {color: 'rgba(0,0,0,0.05)'}
+        },
+        barGap:'-100%',
+        barCategoryGap:'40%',
+        data: dataShadow,
+        animation: false
+        },
+        {
+        type: 'bar',
+        itemStyle: {
+        normal: {
+        color: new echarts.graphic.LinearGradient(
+        0, 0, 0, 1,
+        [
+        {offset: 0, color: '#83bff6'},
+        {offset: 0.5, color: '#188df0'},
+        {offset: 1, color: '#188df0'}
+        ]
+        )
+        },
+        emphasis: {
+        color: new echarts.graphic.LinearGradient(
+        0, 0, 0, 1,
+        [
+        {offset: 0, color: '#2378f7'},
+        {offset: 0.7, color: '#2378f7'},
+        {offset: 1, color: '#83bff6'}
+        ]
+        )
+        }
+        },
+        data: data
+        }
+        ]
+        };
+
+        // Enable data zoom when user click bar.
+        myChart.setOption(option);
+        var zoomSize = 6;
+        myChart.on('click', function (params) {
+        console.log(dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)]);
+        myChart.dispatchAction({
+        type: 'dataZoom',
+        startValue: dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)],
+        endValue: dataAxis[Math.min(params.dataIndex + zoomSize / 2, data.length - 1)]
+        });
+        });
+
+        $(function () {
+        $.ajax("${ctxPath}/zhaoxuyang/article/list", {
+        data: {
+
+        },
+        success: function (data) {
+        //console.log(data);
+        //location.href = "${ctxPath}/${session.user.username!}/article/list";
+        },
+        fail: function () {
+        alert("提交失败！服务端未响应！");
+        },
+        type: "POST"
+        });
+        });
+
+
+    </script>
+</body>
+
+</html>
+

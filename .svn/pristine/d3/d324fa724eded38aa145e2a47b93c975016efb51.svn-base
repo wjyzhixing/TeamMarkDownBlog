@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html>
+    <#head title='首页' />
+    <body style="text-align: center">
+        <div class="container">
+            <#nav />
+            <div class="form-inline" >
+                <div class="form-group">
+                    <label for="wordCloudNum">显示词云个数</label>
+                    <input type="number" class="form-control" id="wordCloudNum" placeholder="您要指定的词云个数">
+                </div>
+                <div class="form-group">
+                    <label for="wordCloudString">过滤字符串</label>
+                    <input type="text" class="form-control" id="wordCloudString" placeholder="您不需要的字词">
+                </div>
+                <div class="form-group hide" id="displayDiv">
+                    <label for="wordCloudString">更改字体最小值</label>
+                    <input type="text" class="form-control" id="wordCloudSize" placeholder="您认为合适的字体大小">
+                </div>
+                <div class="form-group hide" id="displayDiv2">
+                    <label for="wordCloudString">更改字体最大值</label>
+                    <input type="text" class="form-control" id="wordCloudSizeMax" placeholder="您认为合适的字体大小">
+                </div>
+                <button class="btn btn-default" id="check">提交查看</button>
+            </div>
+            <div id="box" style="height: 800px;width:1080px;margin:0 auto;"></div>
+            <div id="cloudSize">
+
+            </div>
+        </div>
+        <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+        <script src="/assets/js/echarts/echarts-all.js"></script>
+
+        <script type="text/javascript">
+            $('#check').bind('click', function () {
+                console.log(getLocalhostPath() + 'analysis/cloudAnalysis/' + $('#wordCloudNum').val())
+
+                console.log($('#wordCloudString').val())
+
+                $.ajax({
+                    url: getLocalhostPath() + 'analysis/cloudAnalysis/' + $('#wordCloudNum').val(),
+                    data: {
+                        userFilter: $('#wordCloudString').val()
+                    },
+                    success: function (data) {
+                        $('#displayDiv').removeClass("hide");
+                        $('#displayDiv2').removeClass("hide");
+                        console.log("running...");
+                        var dom = document.getElementById("box");
+                        var myChart = echarts.init(dom);
+                        function createRandomItemStyle() {
+                            return {
+                                normal: {
+                                    color: 'rgb(' + [
+                                        Math.round(Math.random() * 160),
+                                        Math.round(Math.random() * 160),
+                                        Math.round(Math.random() * 160)
+                                    ].join(',') + ')'
+                                }
+                            };
+                        }
+                        console.log(data.cloudList.length);
+                        let arr = [];
+                        let length = data.cloudList.length;
+
+                        let userSize = $('#wordCloudSize').val();
+                        let userSizeMax = $('#wordCloudSizeMax').val();
+                        for (let i = 0; i < length; i++) {
+                            let temp = {}
+                            temp.value = data.cloudList[i].count * 20;
+
+                            if (userSizeMax == "") {
+                                if (userSize != "") {
+                                    if (userSize < temp.value) {
+                                        temp.name = data.cloudList[i].word;
+                                        temp.itemStyle = createRandomItemStyle();
+                                        arr.push(temp);
+                                    }
+                                } else
+                                {
+                                    temp.name = data.cloudList[i].word;
+                                    temp.itemStyle = createRandomItemStyle();
+                                    arr.push(temp);
+                                }
+
+                            } else if (userSize <= temp.value && userSizeMax >= temp.value)
+                            {
+                                temp.name = data.cloudList[i].word;
+                                temp.itemStyle = createRandomItemStyle();
+                                arr.push(temp);
+
+                            }
+
+                        }
+//                        alert(arr.length)
+                        console.log(arr[0].value);
+                        console.log(arr[arr.length - 1].value)
+                        console.log(JSON.stringify(arr));
+//                        let dataNow = JSON.stringify(arr);
+                        option = {
+                            tooltip: {
+                                show: true
+                            },
+                            series: [{
+                                    name: 'Google Trends',
+                                    type: 'wordCloud',
+                                    size: ['80%', '80%'],
+                                    textRotation: [0, 45, 90, -45],
+                                    textPadding: 0,
+                                    autoSize: {
+                                        enable: true,
+                                        minSize: 5
+                                    },
+                                    data: arr
+
+                                }]
+                        };
+
+                        myChart.setOption(option);
+                        $('#cloudSize').text("词云字体大小区间为：" + arr[arr.length - 1].value + "~" + arr[0].value + "，共"　 + arr.length + "个单词" +"，出现次数最多的词为：" + arr[0].name+ "," +"出现次数最少的词为："　+arr[arr.length-1].name　);
+                        $('#cloudSize').css("font-size", "20px");
+                    }
+                }
+                )
+            })
+
+            function getLocalhostPath() {
+
+                //获取当前网址，如： http://localhost:8080/Tmall/index.jsp 
+                var curWwwPath = window.document.location.href;
+
+                //获取主机地址之后的目录如：/Tmall/index.jsp 
+                var pathName = window.document.location.pathname;
+                var pos = curWwwPath.indexOf(pathName);
+
+                //获取主机地址，如： http://localhost:8080 
+                var localhostPath = curWwwPath.substring(0, pos);
+                return localhostPath + "/";
+
+                //获取带"/"的项目名，如：/Tmall 
+                //var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1);     
+            }
+        </script>
+    </body>
+</html>

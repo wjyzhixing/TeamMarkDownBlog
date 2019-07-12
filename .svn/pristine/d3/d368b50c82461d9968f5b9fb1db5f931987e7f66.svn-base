@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- UserMapper.xml -->
+
+<mapper namespace="net.zhaoxuyang.blog.mapper.ArticleTopInfoMapper">
+    <resultMap id="ArticleTopInfoMap" type="ArticleTopInfo">
+        <id property="articleId" column="article_id"/>
+        <result property="title" column="title" />
+        <result property="countTimes" column="count_times"/>
+    </resultMap>
+    
+    <select id="list" resultMap="ArticleTopInfoMap">
+        select article_id,title,count_times from article_top10,article where article_id = article.id
+    </select>
+    
+    
+
+</mapper>

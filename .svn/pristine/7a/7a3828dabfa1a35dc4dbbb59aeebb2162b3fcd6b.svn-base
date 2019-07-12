@@ -1,0 +1,172 @@
+[{
+        "sheng": " 安徽省",
+        "jingdu": 117.283043,
+        "weidu": 31.861191,
+        "renshu": 2149
+    }, {
+        "sheng": " 澳门特别行政区",
+        "jingdu": 113.54913,
+        "weidu": 22.19875,
+        "renshu": 24
+    }, {
+        "sheng": " 北京市",
+        "jingdu": 116.405289,
+        "weidu": 39.904987,
+        "renshu": 294
+    }, {
+        "sheng": " 福建省",
+        "jingdu": 119.306236,
+        "weidu": 26.075302,
+        "renshu": 1593
+    }, {
+        "sheng": " 甘肃省",
+        "jingdu": 103.83417,
+        "weidu": 36.06138,
+        "renshu": 1730
+    }, {
+        "sheng": " 广东省",
+        "jingdu": 113.28064,
+        "weidu": 23.125177,
+        "renshu": 2643
+    }, {
+        "sheng": " 广西壮族自治区",
+        "jingdu": 108.320007,
+        "weidu": 22.82402,
+        "renshu": 2092
+    }, {
+        "sheng": " 贵州省",
+        "jingdu": 106.713478,
+        "weidu": 26.578342,
+        "renshu": 1550
+    }, {
+        "sheng": " 海南省",
+        "jingdu": 110.19989,
+        "weidu": 20.04422,
+        "renshu": 455
+    }, {
+        "sheng": " 河北省",
+        "jingdu": 114.502464,
+        "weidu": 38.045475,
+        "renshu": 2916
+    }, {
+        "sheng": " 河南省",
+        "jingdu": 113.665413,
+        "weidu": 34.757977,
+        "renshu": 3007
+    }, {
+        "sheng": " 黑龙江省",
+        "jingdu": 126.642464,
+        "weidu": 45.756966,
+        "renshu": 2509
+    }, {
+        "sheng": " 湖北省",
+        "jingdu": 114.298569,
+        "weidu": 30.584354,
+        "renshu": 1942
+    }, {
+        "sheng": " 湖南省",
+        "jingdu": 112.982277,
+        "weidu": 28.19409,
+        "renshu": 2417
+    }, {
+        "sheng": " 吉林省",
+        "jingdu": 125.324501,
+        "weidu": 43.886841,
+        "renshu": 1127
+    }, {
+        "sheng": " 江苏省",
+        "jingdu": 118.76741,
+        "weidu": 32.041546,
+        "renshu": 1977
+    }, {
+        "sheng": " 江西省",
+        "jingdu": 115.892151,
+        "weidu": 28.676493,
+        "renshu": 1932
+    }, {
+        "sheng": " 辽宁省",
+        "jingdu": 123.429092,
+        "weidu": 41.796768,
+        "renshu": 1961
+    }, {
+        "sheng": " 内蒙古自治区",
+        "jingdu": 111.75199,
+        "weidu": 40.84149,
+        "renshu": 1886
+    }, {
+        "sheng": " 宁夏回族自治区",
+        "jingdu": 106.23248,
+        "weidu": 38.48644,
+        "renshu": 443
+    }, {
+        "sheng": " 青海省",
+        "jingdu": 101.77782,
+        "weidu": 36.61729,
+        "renshu": 827
+    }, {
+        "sheng": " 山东省",
+        "jingdu": 117.000923,
+        "weidu": 36.675808,
+        "renshu": 2701
+    }, {
+        "sheng": " 山西省",
+        "jingdu": 112.549248,
+        "weidu": 37.857014,
+        "renshu": 1902
+    }, {
+        "sheng": " 陕西省",
+        "jingdu": 108.948021,
+        "weidu": 34.263161,
+        "renshu": 2049
+    }, {
+        "sheng": " 上海市",
+        "jingdu": 121.472641,
+        "weidu": 31.231707,
+        "renshu": 348
+    }, {
+        "sheng": " 四川省",
+        "jingdu": 104.065735,
+        "weidu": 30.659462,
+        "renshu": 3464
+    }, {
+        "sheng": " 台湾省",
+        "jingdu": 121.520076,
+        "weidu": 25.030724,
+        "renshu": 18
+    }, {
+        "sheng": " 天津市",
+        "jingdu": 117.190186,
+        "weidu": 39.125595,
+        "renshu": 281
+    }, {
+        "sheng": " 西藏自治区",
+        "jingdu": 91.1145,
+        "weidu": 29.64415,
+        "renshu": 1267
+    }, {
+        "sheng": " 香港特别行政区",
+        "jingdu": 114.16546,
+        "weidu": 22.27534,
+        "renshu": 17
+    }, {
+        "sheng": " 新疆维吾尔自治区",
+        "jingdu": 87.61688,
+        "weidu": 43.82663,
+        "renshu": 1696
+    }, {
+        "sheng": " 云南省",
+        "jingdu": 102.71225,
+        "weidu": 25.040609,
+        "renshu": 2347
+    }, {
+        "sheng": " 浙江省",
+        "jingdu": 120.15358,
+        "weidu": 30.287458,
+        "renshu": 1757
+    }, {
+        "sheng": " 重庆市",
+        "jingdu": 106.504959,
+        "weidu": 29.533155,
+        "renshu": 679
+    }
+]
