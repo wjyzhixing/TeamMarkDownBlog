@@ -1,6 +1,6 @@
 # WMD博客系统
 
-WMD Blog System是由Spring + SpringBoot + Mybatis + Beetl等技术实现的Java博客系统。
+WMD Blog System是由Spring + SpringBoot + Mybatis + Beetl + Hive等技术实现的Java博客系统。
 
 #### using process
 
